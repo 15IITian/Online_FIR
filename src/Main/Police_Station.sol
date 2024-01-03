@@ -26,7 +26,7 @@ contract Police_Station is FIR_Components {
     uint256 Total_FIR;
 
     // no of FIR's remaining ->
-    uint256 FIR_remaining;
+    uint256 public FIR_remaining;
 
     // array kepping records of a FIR->
     mapping(string => string[]) public FIR_Progress;
@@ -59,21 +59,46 @@ contract Police_Station is FIR_Components {
 
     // {d} Methods of a Police Station->
 
-    // Getting Total_FIR registered in Police Station->
-    function get_Total_FIR() public view returns (uint256) {
+    // function to operate internal functions->
+    // [i] person_array->
+    function get_person_array_element(
+        uint256 i
+    ) external view returns (info_FIR_maker memory) {
+        return person_array[i];
+    }
+
+    function add_person_array(info_FIR_maker memory info) external {
+        person_array.push(info);
+    }
+
+    function get_person_array_len() public view returns (uint256) {
+        return person_array.length;
+    }
+
+    // [ii] Total FIR->
+    function get_Total_FIR() external view returns (uint256) {
         return (Total_FIR);
     }
 
-    // Percentage of FIR_remaining ->
-    function get_FIR_remaining_percentage() public view returns (uint256) {
-        // defining percentage zeroes
-        uint8 percent_zeroes = 2;
-
-        // Acessing the station from Station_ID->
-        uint256 percentage = (FIR_remaining * (10 ** percent_zeroes)) /
-            Total_FIR;
-        return (percentage);
+    function inc_Total_FIR() external {
+        Total_FIR++;
     }
+
+    // [iii] maker_to_report->
+    function add_maker_to_Report(
+        string memory fir_no,
+        FIR_Report memory report
+    ) external {
+        maker_to_Report[fir_no] = report;
+    }
+
+    function get_maker_to_Report_element(
+        string memory fir_no
+    ) external view returns (FIR_Report memory) {
+        return maker_to_Report[fir_no];
+    }
+
+    //--------------------------------------------------------------------------------------------------------------
 
     // Terminating resolved'FIR ->
     function terminate_FIR(string memory FIR_no) private {
@@ -93,8 +118,7 @@ contract Police_Station is FIR_Components {
         string memory FIR_no
     ) public view returns (FIR_Report memory) {
         // Acessing Station from ID->
-        FIR_Report memory f = maker_to_Report[FIR_no];
-        return f;
+        return maker_to_Report[FIR_no];
     }
 
     // Adding Progress to a FIR->

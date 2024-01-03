@@ -9,6 +9,9 @@ contract FIR is Police_Station, type_conversions {
     //     emit NewTransaction(msg.sender, _to, _amount);
 
     //______________________________________________________________________________________________________________________________________________________________
+
+    //instance of Police_Station
+    Police_Station p;
     // {a} Events ->
     // [1]->
     event Person_Registration(string _name);
@@ -20,11 +23,23 @@ contract FIR is Police_Station, type_conversions {
     event FIR_process_Completion();
 
     // {a} Functions related to FIR->
+
+    // [i] Constructor->
+    constructor(address police_station_address) {
+        p = Police_Station(police_station_address);
+    }
+
     // [i] Internal Functions->
 
     //(1) Generating FIR_NO->
     function Generate_FIR_NO() internal view returns (string memory) {
-        return (string.concat(StationID, "-", uint_to_string(Total_FIR + 1)));
+        return (
+            string.concat(
+                p.StationID(),
+                "-",
+                uint_to_string(p.get_Total_FIR() + 1)
+            )
+        );
     }
 
     //(2) Registering  Person's data->
@@ -43,7 +58,7 @@ contract FIR is Police_Station, type_conversions {
             FIR_NO
         );
 
-        person_array.push(p1);
+        p.add_person_array(p1);
 
         // Emitting Event->
         emit Person_Registration(_name);
@@ -71,8 +86,9 @@ contract FIR is Police_Station, type_conversions {
             _witness,
             false
         );
-        Total_FIR++;
-        FIR_remaining += 1;
+        p.inc_Total_FIR();
+        uint256 remain = p.FIR_remaining();
+        remain++;
 
         // Emmitting Drafted_FIR event ->
         emit FIR_Drafted(_FIR_NO);
@@ -82,9 +98,10 @@ contract FIR is Police_Station, type_conversions {
 
     //(4) searching for FIR_no in info_FIR_maker array ->
     function search_FIR_no() internal view returns (string memory) {
-        for (uint256 i = 0; i <= person_array.length; i++) {
-            if (person_array[i].Address == msg.sender) {
-                return person_array[i].FIR_no;
+        for (uint256 i = 0; i <= p.get_person_array_len(); i++) {
+             info_FIR_maker memory person= p.get_person_array_element(i);
+            if (person.Address == msg.sender) {
+                return person.FIR_no;
             }
         }
         return "";
@@ -118,8 +135,8 @@ contract FIR is Police_Station, type_conversions {
         );
 
         // Linking a person to it's FIR report->
-        maker_to_Report[p1.FIR_no] = f1;
-
+           p.add_maker_to_Report(p1.FIR_no,f1); 
+      
         // Emmitting FIR_process_Completion event ->
         emit FIR_process_Completion();
     }
@@ -128,7 +145,7 @@ contract FIR is Police_Station, type_conversions {
         string memory result = search_FIR_no();
 
         require(bytes(result).length != 0, "You have not filed any FIR");
-        return maker_to_Report[result];
+        return p.get_maker_to_Report_element(result);
     }
 
     // ___________________________________________--------END------------________________________________________________________________________________________________________________________
