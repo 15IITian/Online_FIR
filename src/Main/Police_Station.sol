@@ -106,9 +106,10 @@ contract Police_Station is FIR_Components {
     //--------------------------------------------------------------------------------------------------------------
 
     // Terminating resolved'FIR ->
-    function terminate_FIR(string memory FIR_no) private {
+    function terminate_FIR(string memory FIR_no) public {
         // Acessing Station  from given ID->
         maker_to_Report[FIR_no].settled = true;
+
         FIR_remaining--;
 
         // Finding duration of working of FIR->
