@@ -2,7 +2,7 @@
 
 // Here defining the police Station institute.
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.20;
 import "./FIR_Components.sol";
 pragma experimental ABIEncoderV2;
 
