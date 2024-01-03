@@ -2,7 +2,7 @@
 
 // Here defining the police Station institute.
 
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 import "./FIR_Components.sol";
 pragma experimental ABIEncoderV2;
 
@@ -96,6 +96,11 @@ contract Police_Station is FIR_Components {
         string memory fir_no
     ) external view returns (FIR_Report memory) {
         return maker_to_Report[fir_no];
+    }
+
+    //[iv] FIR_remaining->
+    function inc_fir_remaining() external {
+        FIR_remaining++;
     }
 
     //--------------------------------------------------------------------------------------------------------------

@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.0;
 import "./Police_Station.sol";
 import "../Accessories/type_conversions.sol";
 
@@ -33,7 +33,7 @@ contract FIR is Police_Station, type_conversions {
     // [i] Internal Functions->
 
     //(1) Generating FIR_NO->
-    function Generate_FIR_NO() internal view returns (string memory) {
+    function Generate_FIR_NO() public view returns (string memory) {
         return (
             string.concat(
                 p.StationID(),
@@ -88,8 +88,7 @@ contract FIR is Police_Station, type_conversions {
             false
         );
         p.inc_Total_FIR();
-        uint256 remain = p.FIR_remaining();
-        remain++;
+        p.inc_fir_remaining();
 
         // Emmitting Drafted_FIR event ->
         emit FIR_Drafted(_FIR_NO);

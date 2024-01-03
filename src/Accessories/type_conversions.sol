@@ -1,5 +1,5 @@
 //SPDX-License-Identifier: GPL-3.0
-pragma solidity ^ 0.8.0;
+pragma solidity ^0.8.0;
 contract type_conversions{
     // function to convert uint to string->
     function uint_to_string(uint256 _no) internal pure  returns (string memory)
