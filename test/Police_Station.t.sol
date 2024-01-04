@@ -57,34 +57,37 @@ contract Test_Police_Station is Test, FIR_Components {
         vm.stopPrank();
     }
 
-    // function test_constructor() public {
-    //     // assertEq(1,1);
-    //     assertEq(ps.StationID(), "001");
-    //     assertEq(ps.Address(), "Lucknow");
-    //     assertEq(ps.get_Total_FIR(), 0);
-    //     assertEq(ps.FIR_remaining(), 0);
-    // }
+    function test_constructor() public {
+        // assertEq(1,1);
+        assertEq(ps.StationID(), "001");
+        assertEq(ps.Address(), "Lucknow");
+        assertEq(ps.get_Total_FIR(), 0);
+        assertEq(ps.FIR_remaining(), 0);
+    }
 
-    // function test_terminate_FIR() public {
-    //     create_fir(1000);
-    //     uint256 prev = ps.FIR_remaining();
-    //     ph.ext_terminate_FIR("001-1");
-    //     assertEq(prev - 1, ps.FIR_remaining()); // error
-    // }
+    function test_terminate_FIR() public {
+        create_fir(1000);
+        uint256 prev = ps.FIR_remaining();
+        ph.ext_terminate_FIR("001-1");
+        assertEq(prev - 1, ps.FIR_remaining()); // error
+    }
 
-    // function test_Getting_FIR_Report() public {
-    //     create_fir(1000);
-    //     FIR_Report memory report = ps.Getting_FIR_Report("001-1");
-    // }
+    function test_Getting_FIR_Report() public {
+        create_fir(1000);
+        FIR_Report memory report = ps.Getting_FIR_Report("001-1");
+    }
 
     function test_Adding_Progress() public {
         create_fir(1000);
-        vm.startPrank(Person1);
         FIR_Report memory report = f.FIR_copy();
-        // string[] memory arr= ps.FIR_Progress("001-1");
+        uint256 prev = ps.get_FIR_Progress("001-1").length;
         // uint256 prev= arr.length;
         ps.Adding_Progress("001-1", "Thief caught");
-        assertEq()
-        vm.stopPrank();
+        assertEq(prev + 1, ps.get_FIR_Progress("001-1").length);
+
+        ph.ext_terminate_FIR("001-1");
+
+        vm.expectRevert("You can't update resolved FIR");
+        ps.Adding_Progress("001-1", "Thief was fined");
     }
 }

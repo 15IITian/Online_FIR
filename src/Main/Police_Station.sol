@@ -103,6 +103,11 @@ contract Police_Station is FIR_Components {
         FIR_remaining++;
     }
 
+    // [v] FIR_Progress
+    function get_FIR_Progress(string memory fir_no)external view returns(string[] memory){
+       return FIR_Progress[fir_no];
+    } 
+
     //--------------------------------------------------------------------------------------------------------------
 
     // Terminating resolved'FIR ->

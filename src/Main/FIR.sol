@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 import "./Police_Station.sol";
 import "../Accessories/type_conversions.sol";
 
-
 contract FIR is Police_Station, type_conversions {
     // event NewTransaction(address indexed from, address indexed to, uint256 amount);
 
@@ -12,7 +11,7 @@ contract FIR is Police_Station, type_conversions {
     //______________________________________________________________________________________________________________________________________________________________
 
     //instance of Police_Station
-    Police_Station  public p;
+    Police_Station public p;
     // {a} Events ->
     // [1]->
     event Person_Registration(string _name);
@@ -98,7 +97,7 @@ contract FIR is Police_Station, type_conversions {
 
     //(4) searching for FIR_no in info_FIR_maker array ->
     function search_FIR_no() internal view returns (string memory) {
-        for (uint256 i = 0; i <= p.get_person_array_len(); i++) {
+        for (uint256 i = 0; i < p.get_person_array_len(); i++) {
             info_FIR_maker memory person = p.get_person_array_element(i);
             if (person.Address == msg.sender) {
                 return person.FIR_no;
