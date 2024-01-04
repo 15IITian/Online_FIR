@@ -4,7 +4,7 @@ import {Test, console} from "forge-std/Test.sol";
 import {StdCheats} from "forge-std/StdCheats.sol";
 import {FIR_Components} from "../src/Main/FIR_Components.sol";
 import {FIR} from "../src/Main/FIR.sol";
-import {DeployScript} from "../script/Counter.s.sol";
+import {DeployScript} from "../script/Deploy.s.sol";
 import {Police_Station} from "../src/Main/Police_Station.sol";
 import {type_conversions} from "../src/Accessories/type_conversions.sol";
 import "./Harness/FIR_Harness.sol";

@@ -7,7 +7,11 @@ import "../src/Main/FIR.sol";
 
 contract DeployScript is Script {
     function run() external {
-        vm.startBroadcast();
+        uint256 privateKey = vm.envUint("DEV_PRIVATE_KEY");
+        address account = vm.addr(privateKey);
+        console.log("Account", account);
+
+        vm.startBroadcast(privateKey);
         Police_Station ps = new Police_Station();
         FIR f = new FIR(address(ps));
         console.log("address of ps", address(ps));
