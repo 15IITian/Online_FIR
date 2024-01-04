@@ -19,7 +19,7 @@ The **Decentralised Online FIR Platform** aims to revolutionize the FIR (First I
    - Work is in progress to integrate the backend functionality with a user-friendly frontend. Stay tuned for updates!
 
 ## Deployed on MODE Network
-   - The Decentralised Online FIR Platform is deployed on MODE Network – an L2 solution for Ethereum. Benefit from fast and cost-effective transactions, taking advantage of the SFS (Somebody else's Fee System) mechanism by registering the smart contracts with the SFS contract.
+   - The Decentralised Online FIR Platform is deployed on MODE Network – an L2 solution for Ethereum. Benefit from fast and cost-effective transactions, taking advantage of the SFS (Sequencer Fee Sharing) mechanism by registering the smart contracts with the SFS contract.
 
 ## Contributing
    - Your contribution matters! Let's collaborate and shape the future of digital justice together. Join us in making a difference! 🌐✨
